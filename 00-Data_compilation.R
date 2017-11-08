@@ -139,11 +139,6 @@ BP_PAdata <- BP_PAdata %>%
 CC_PAdata <- CC_PAdata %>%
   mutate(PIPO = (Species == "PIPO") %>% as.numeric)
 
-# Add field identifying unhatched nests #
-TB_PAdata <- TB_PAdata %>%
-  mutate(unhatched = 0) %>%
-  mutate(unhatched = replace(unhatched, which(Point_)))
-
 # IDs for unhatched nests #
 unhatched.nests <- c("TBORAA_NA1_2007", "TBOR08_NB1_2005", "CCORSG_NG01_2016", "CCORSG_NF01_2017",
                      "YV-A01")
