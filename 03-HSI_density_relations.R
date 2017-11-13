@@ -9,10 +9,6 @@ A.TB <- 27.80448817 + (30.62204 * 4) # Area surveyed in units of 100 ha X 5 year
 A.CC <- 43.46927683 + 47.26782927 # Area surveyed in units of 100 ha for each years added together
 A <- A.TB + A.CC
 
-###____Remove unhatched nests____###
-
-###______________________________###
-
 nests <- TB_nsts %>% filter(unhatched == 0) %>%
   select(TID, Slp:pipo_1km) %>%
   bind_rows(CC_nsts %>% filter(unhatched == 0) %>%
@@ -32,7 +28,7 @@ thresholds <- c(0.34, 0.6) # Thresholds for low, moderate, and high suitability 
 #dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
 #dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
 #dat.class <- dat.class %>% HSIClassDensityBS(nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
-#write.csv(dat.class, "Plotting_cache_Mxnt_densities_BS.csv")
+#write.csv(dat.class, "Plotting_cache_Mxnt_densities_BS.csv", row.names = F)
 dat.class <- read.csv("Plotting_cache_Mxnt_densities_BS.csv", header = T, stringsAsFactors = F)
 
 # Compile bin densities
