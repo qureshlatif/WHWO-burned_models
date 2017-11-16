@@ -23,12 +23,7 @@ transects <- unique(bkg$TID)
 thresholds <- c(0.34, 0.6) # Thresholds for low, moderate, and high suitability classes
 
 # Compile class-specific densities and boot-strap CIs at the transect level. #
-#dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
-#dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
-#dat.class <- dat.class %>% HSIClassDensityBS(nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
-#write.csv(dat.class, "Table_cache_Mxnt_TBdensities_BS.csv", row.names = F)
 dat.class <- read.csv("Table_cache_Mxnt_TBdensities_BS.csv", header = T, stringsAsFactors = F)
-
 dat.class[, c("Density", "Dens95lo", "Dens95hi")] <- # Convert to 1000 acre units
   dat.class[, c("Density", "Dens95lo", "Dens95hi")] * 4.046863
 
@@ -42,9 +37,9 @@ bkg <- bkg %>% mutate(HSIclass = "low") %>%
   mutate(HSIclass = replace(HSIclass,
                             which(bkg$HSI >= thresholds[1] &
                                     bkg$HSI < thresholds[2]), "mod")) %>%
-  mutate(HSI_class = replace(HSIclass,
+  mutate(HSIclass = replace(HSIclass,
                              which(bkg$HSI >= thresholds[2]), "high"))
-out["MX_TB_ArSrv", ] <- ((tapply(bkg$HSI, bkg$HSI_class, length)[c("low", "mod", "high")] /
+out["MX_TB_ArSrv", ] <- ((tapply(bkg$HSI, bkg$HSIclass, length)[c("low", "mod", "high")] /
                            nrow(bkg)) * A * 100 * 2.47105) %>% round(digits = 1)
 
 # Canyon Creek #
@@ -58,12 +53,7 @@ transects <- unique(bkg$TID)
 thresholds <- c(0.34, 0.6) # Thresholds for low, moderate, and high suitability classes
 
 # Compile class-specific densities and boot-strap CIs at the transect level. #
-#dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
-#dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
-#dat.class <- dat.class %>% HSIClassDensityBS(nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
-#write.csv(dat.class, "Table_cache_Mxnt_CCdensities_BS.csv")
 dat.class <- read.csv("Table_cache_Mxnt_CCdensities_BS.csv", header = T, stringsAsFactors = F)
-
 dat.class[, c("Density", "Dens95lo", "Dens95hi")] <- # Convert to 1000 acre units
   dat.class[, c("Density", "Dens95lo", "Dens95hi")] * 4.046863
 
@@ -77,9 +67,9 @@ bkg <- bkg %>% mutate(HSIclass = "low") %>%
   mutate(HSIclass = replace(HSIclass,
                             which(bkg$HSI >= thresholds[1] &
                                     bkg$HSI < thresholds[2]), "mod")) %>%
-  mutate(HSI_class = replace(HSIclass,
+  mutate(HSIclass = replace(HSIclass,
                              which(bkg$HSI >= thresholds[2]), "high"))
-out["MX_CC_ArSrv", ] <- ((tapply(bkg$HSI, bkg$HSI_class, length)[c("low", "mod", "high")] /
+out["MX_CC_ArSrv", ] <- ((tapply(bkg$HSI, bkg$HSIclass, length)[c("low", "mod", "high")] /
                            nrow(bkg)) * A * 100 * 2.47105) %>% round(digits = 1)
 
 write.csv(out, "HSIclass_densities_by_location_GISmanual.csv", row.names = T)

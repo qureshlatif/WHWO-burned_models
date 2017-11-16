@@ -27,7 +27,7 @@ thresholds <- c(0.34, 0.6) # Thresholds for low, moderate, and high suitability 
 #dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
 #dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
 #dat.class <- dat.class %>% HSIClassDensityBS(nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
-#write.csv(dat.class, "Table_cache_Mxnt_TBdensities_BS.csv")
+#write.csv(dat.class, "Table_cache_Mxnt_TBdensities_BS.csv", row.names = F)
 dat.class <- read.csv("Table_cache_Mxnt_TBdensities_BS.csv", header = T, stringsAsFactors = F)
 
 out["MX_TB_Dens", ] <- str_c(dat.class[, "Density"] %>% round(digits = 2), " (",
@@ -59,7 +59,7 @@ thresholds <- c(0.34, 0.6) # Thresholds for low, moderate, and high suitability 
 #dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
 #dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
 #dat.class <- dat.class %>% HSIClassDensityBS(nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
-#write.csv(dat.class, "Table_cache_Mxnt_CCdensities_BS.csv")
+#write.csv(dat.class, "Table_cache_Mxnt_CCdensities_BS.csv", row.names = F)
 dat.class <- read.csv("Table_cache_Mxnt_CCdensities_BS.csv", header = T, stringsAsFactors = F)
 
 out["MX_CC_Dens", ] <- str_c(dat.class[, "Density"] %>% round(digits = 2), " (",
@@ -110,7 +110,7 @@ thresholds <- c(0.3, 0.53) # Thresholds for low, moderate, and high suitability 
 #dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
 #dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
 #dat.class <- dat.class %>% HSIClassDensityBS(nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
-#write.csv(dat.class, "Table_cache_WLR_TBdensities_BS.csv")
+#write.csv(dat.class, "Table_cache_WLR_TBdensities_BS.csv", row.names = F)
 dat.class <- read.csv("Table_cache_WLR_TBdensities_BS.csv", header = T, stringsAsFactors = F)
 
 out["WLR_TB_Dens", ] <- str_c(dat.class[, "Density"] %>% round(digits = 2), " (",
@@ -146,7 +146,7 @@ thresholds <- c(0.3, 0.53) # Thresholds for low, moderate, and high suitability 
 #dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
 #dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
 #dat.class <- dat.class %>% HSIClassDensityBS(nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
-#write.csv(dat.class, "Table_cache_WLR_CCdensities_BS.csv")
+#write.csv(dat.class, "Table_cache_WLR_CCdensities_BS.csv", row.names = F)
 dat.class <- read.csv("Table_cache_WLR_CCdensities_BS.csv", header = T, stringsAsFactors = F)
 
 out["WLR_CC_Dens", ] <- str_c(dat.class[, "Density"] %>% round(digits = 2), " (",

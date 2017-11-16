@@ -29,8 +29,10 @@ bkg$HSI <- WHWO_burned(bkg$brnopn_1ha, bkg$brnopn_1km)$hsi
 transects <- unique(bkg$TID)
 thresholds <- c(0.34, 0.6) # Thresholds for low, moderate, and high suitability classes
 
-# Compile class-specific densities and boot-strap CIs at the transect level. #
-dat.class <- read.csv("Plotting_cache_Mxnt_densities_BS_GISmanual.csv", header = T, stringsAsFactors = F)
+# Get class-specific densities and boot-strap CIs at the transect level. #
+dat.class <- read.csv("Plotting_cache_Mxnt_densities_BS.csv", header = T, stringsAsFactors = F)
+dat.class[, c("Density", "Dens95lo", "Dens95hi")] <- # Convert to nests per 1000 acres
+  (dat.class[, c("Density", "Dens95lo", "Dens95hi")] / 247.105) * 1000
 
 # Compile bin densities
 bins <- calcBins(600, nrow(bkg), 4)

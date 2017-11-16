@@ -114,10 +114,10 @@ axisLabSize <- 20   # Size of axis title labels
 classLabSize <- 6   # Size of labels for low, moderate, and high suitability classes
 
 # Coordinates for plot labels
-labxy <- list(maxSSS = c(x = 0.51, y = 1.18),
-              Low = c(x = 0.17, y = 1.39), 
-              Moderate = c(x = 0.4, y = 1.39, angle = 0),
-              High = c(x = 0.7, y = 1.39))
+labxy <- list(maxSSS = c(x = 0.51, y = 1),
+              Low = c(x = 0.17, y = 1.25), 
+              Moderate = c(x = 0.4, y = 1.25, angle = 0),
+              High = c(x = 0.7, y = 1.25))
 
 plt.wlr <- plotDens(dat.bin, dat.class, nests$HSI, thresholds, binPntSize, classPntSize, axisLabSize,
                    tickLabSize, classLabSize, labxy, BS = T, ylabel = NULL,

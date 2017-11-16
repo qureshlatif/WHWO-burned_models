@@ -41,7 +41,8 @@ Point_ID[nsts] <- paste(Dat.remote$Unit[nsts],"_N",Dat.remote$ID[nsts],"_",Dat.r
 
 Dat.remote <- Dat.remote %>% tbl_df %>%
   mutate(Point_ID = Point_ID, Nest = Nest) %>%
-  select(Point_ID, TID, Nest, slope, cosasp, brnopn_1ha:log07_1km)
+  select(Point_ID, BSunits, Nest, slope, cosasp, brnopn_1ha:log07_1km) %>%
+  rename(TID = BSunits)
 
 #No. trees & snags
 Dat.nest <- read.table("F:/research stuff/FS_PostDoc/data/Data_for_databases/BBN/from_database/Nest_data.txt",

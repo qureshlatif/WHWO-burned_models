@@ -27,6 +27,8 @@ TB_Data <- read.dbf("E:/GISData/WHWO/brn_frst_project/Toolbox/TB_points_surveyed
   mutate(log06_1km = (log06_1km/3409)*100) %>%
   mutate(log07_1ha = (log07_1ha/9)*100) %>%
   mutate(log07_1km = (log07_1km/3409)*100) %>%
+  select(-TID) %>%
+  rename(TID = BSunit) %>%
   select(Id, TID, X:nest, Slp, cosasp, brnopn_1ha, brnopn_1km, pipo_1km, log03_1ha:log07_1km, unhatched)
 
 #write.csv(TB_Data,"Maxent_models/Toolbox/lndscp.csv",row.names=F)
@@ -85,7 +87,9 @@ CCC.data <- read.dbf("E:/GISData/WHWO/brn_frst_project/CanCrk/grid30.dbf", as.is
   mutate(log_1km = log_1km * 100) %>%
   mutate(log1ha2016 = log1ha2016 * 100) %>%
   mutate(log1km2016 = log1km2016 * 100) %>%
-  rename(log1ha2017 = log_1ha, log1km2017 = log_1km)
+  rename(log1ha2017 = log_1ha, log1km2017 = log_1km) %>%
+  select(-TID) %>%
+  rename(TID = BSunits)
 
 CC_nsts2016 <- CCC.data %>% filter(WHWO_nest == 2016) %>%
   select(POINTID, TID, unhatched, slope:HSI_TB, log1ha2016, log1km2016) %>%

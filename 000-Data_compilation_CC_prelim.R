@@ -11,7 +11,9 @@ Dat.remote <- read.dbf("E:/GISData/WHWO/brn_frst_project/CanCrk/FieldMeasPnts.db
   mutate(log_1km = log_1km * 100) %>%
   mutate(log1ha2016 = log1ha2016 * 100) %>%
   mutate(log1km2016 = log1km2016 * 100) %>%
-  rename(log1ha2017 = log_1ha, log1km2017 = log_1km)
+  rename(log1ha2017 = log_1ha, log1km2017 = log_1km) %>%
+  select(-TID) %>%
+  rename(TID = BSunits)
 
 ### Field-collected record IDs ###
 Dat.nest <- read.table("CCC_birds_nest_locations.txt",
