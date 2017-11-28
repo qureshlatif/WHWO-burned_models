@@ -40,17 +40,20 @@ binPntSize <- 2   # Size of points representing moving-window bin values
 classPntSize <- 5   # Size of points representing HSI-class values
 tickLabSize <- 15   # Size of axis tick labels
 axisLabSize <- 20   # Size of axis title labels
-classLabSize <- 6   # Size of labels for low, moderate, and high suitability classes
 
   # Coordinates for plot labels
-labxy <- list(maxSSS = c(x = 0.32, y = 1.4),
-              Low = c(x = 0.2, y = 1.7), 
-              Moderate = c(x = 0.47, y = 1.7, angle = 0),
+classLabSize <- 6   # Size of labels for low, moderate, and high suitability classes
+labxy <- list(Low = c(x = 0.2, y = 1.7), 
+              Moderate = c(x = 0.47, y = 1.7),
               High = c(x = 0.75, y = 1.7))
 
 plt.mx <- plotDens(dat.bin, dat.class, nests$HSI, thresholds, binPntSize, classPntSize, axisLabSize,
-                    tickLabSize, classLabSize, labxy, BS = T, ylabel = NULL,
+                    tickLabSize,BS = T, ylabel = NULL,
                    xlabel = "Maxent HSI")
+plt.mx <- plt.mx +
+  annotate("text", x = labxy$Low["x"], y = labxy$Low["y"], label = "Low", size = classLabSize) +
+  annotate("text", x = labxy$Moderate["x"], y = labxy$Moderate["y"], label = "Moderate", size = classLabSize) +
+  annotate("text", x = labxy$High["x"], y = labxy$High["y"], label = "High", size = classLabSize)
 
 ###_________________________________________________________________###
 
@@ -111,17 +114,24 @@ binPntSize <- 2   # Size of points representing moving-window bin values
 classPntSize <- 5   # Size of points representing HSI-class values
 tickLabSize <- 15   # Size of axis tick labels
 axisLabSize <- 20   # Size of axis title labels
-classLabSize <- 6   # Size of labels for low, moderate, and high suitability classes
 
 # Coordinates for plot labels
+classLabSize <- 6   # Size of labels for low, moderate, and high suitability classes
 labxy <- list(maxSSS = c(x = 0.51, y = 1),
               Low = c(x = 0.17, y = 1.25), 
               Moderate = c(x = 0.4, y = 1.25, angle = 0),
               High = c(x = 0.7, y = 1.25))
 
+#plt.wlr <- plotDens(dat.bin, dat.class, nests$HSI, thresholds, binPntSize, classPntSize, axisLabSize,
+#                   tickLabSize, classLabSize, labxy, BS = T, ylabel = NULL,
+#                   xlabel = "WLR HSI")
 plt.wlr <- plotDens(dat.bin, dat.class, nests$HSI, thresholds, binPntSize, classPntSize, axisLabSize,
-                   tickLabSize, classLabSize, labxy, BS = T, ylabel = NULL,
+                   tickLabSize,BS = T, ylabel = NULL,
                    xlabel = "WLR HSI")
+plt.wlr <- plt.wlr +
+  annotate("text", x = labxy$Low["x"], y = labxy$Low["y"], label = "Low", size = classLabSize) +
+  annotate("text", x = labxy$Moderate["x"], y = labxy$Moderate["y"], label = "Moderate", size = classLabSize) +
+  annotate("text", x = labxy$High["x"], y = labxy$High["y"], label = "High", size = classLabSize)
 
 ###_________________________________________________________________###
 

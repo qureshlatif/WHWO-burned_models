@@ -1,4 +1,7 @@
 library(R.utils)
+#devtools::install_github("qureshlatif/WoodpeckerHSI") # Run this upon first use.
+# Note: You might get some disconcerting warnings upon first install.
+#To avoid them, restart R after installing package.
 require(WoodpeckerHSI)
 setwd("F:/research stuff/FS_PostDoc/WHWO/burn_forest_modeling/")
 load("HSI_validation_MS/Data_compiled.RData")
@@ -51,7 +54,7 @@ plt.LandPIPO <- ggplot(dat.plot, aes(pipo_1km, HSI)) +
   theme(axis.title.x=element_text(size=30)) +
   theme(axis.title.y=element_text(size=30))
 
-# LandPIPO relationship #
+# SLOPE relationship #
 slope <- seq(0.0, 78.7753, length.out = 20)
 brnopn_1ha <- mean(CC_bkg$brnopn_1ha)
 brnopn_1km <- mean(CC_bkg$brnopn_1km)
