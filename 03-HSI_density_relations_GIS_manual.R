@@ -43,19 +43,22 @@ binPntSize <- 2   # Size of points representing moving-window bin values
 classPntSize <- 5   # Size of points representing HSI-class values
 tickLabSize <- 15   # Size of axis tick labels
 axisLabSize <- 20   # Size of axis title labels
-classLabSize <- 6   # Size of labels for low, moderate, and high suitability classes
 
-  # Coordinates for plot labels
-labxy <- list(maxSSS = c(x = 0.32, y = 1.4 * 4.046863),
-              Low = c(x = 0.2, y = 1.7 * 4.046863), 
-              Moderate = c(x = 0.47, y = 1.7 * 4.046863, angle = 0),
+# Coordinates for plot labels
+classLabSize <- 6   # Size of labels for low, moderate, and high suitability classes
+labxy <- list(Low = c(x = 0.2, y = 1.7 * 4.046863), 
+              Moderate = c(x = 0.47, y = 1.7 * 4.046863),
               High = c(x = 0.75, y = 1.7 * 4.046863))
 
 theme_set(theme_bw())
-plt.mx <- plotDens(dat.bin, dat.class, nests$HSI, thresholds, binPntSize, classPntSize, axisLabSize,
-                    tickLabSize, classLabSize, labxy, BS = T, ylabel = "Density - hatched nests per 1000 ac",
+plt <- plotDens(dat.bin, dat.class, nests$HSI, thresholds, binPntSize, classPntSize, axisLabSize,
+                   tickLabSize,BS = T, ylabel = "Density - hatched nests per 1000 ac",
                    xlabel = "Habitat Suitability Index (HSI)")
+plt <- plt +
+  annotate("text", x = labxy$Low["x"], y = labxy$Low["y"], label = "Low", size = classLabSize) +
+  annotate("text", x = labxy$Moderate["x"], y = labxy$Moderate["y"], label = "Moderate", size = classLabSize) +
+  annotate("text", x = labxy$High["x"], y = labxy$High["y"], label = "High", size = classLabSize)
 
 
 save_plot("F:/research stuff/FS_PostDoc/Model_application_tool/Fig_WHWO_burn_Dens.tiff",
-          plt.mx, ncol = 2.5, nrow = 2.5, dpi = 200)
+          plt, ncol = 2.5, nrow = 2.5, dpi = 200)
