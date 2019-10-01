@@ -69,12 +69,22 @@ rm(Pres_data)
 ## Barry Point ##
 BP_nsts <- read.csv("F:/research stuff/FS_PostDoc/WHWO/burn_forest_modeling/Maxent_models/Barry_point/BP_nests.csv",
                     header=T, stringsAsFactors=F) %>% tbl_df %>%
-  select(Species:Y, slope, cosasp, brnopn_1ha, brnopn_1km, pipo_1km)
+  mutate(brnopn_1ha_ravg = brnopn_1ha) %>%
+  mutate(brnopn_1km_ravg = brnopn_1km) %>%
+  mutate(brnopn_1ha = brnopn_1ha_mtbs) %>%
+  mutate(brnopn_1km = brnopn_1km_mtbs) %>%
+  select(Species:Y, slope, cosasp, brnopn_1ha, brnopn_1km, pipo_1km,
+         brnopn_1ha_mtbs, brnopn_1km_mtbs, brnopn_1ha_ravg, brnopn_1km_ravg)
 names(BP_nsts) <- names(TB_nsts)[-which(names(TB_nsts) %in% c("TID", "nest", "log_1ha", "log_1km", "unhatched"))]
 
 BP_bkg <- read.csv("F:/research stuff/FS_PostDoc/WHWO/burn_forest_modeling/Maxent_models/Barry_point/BP_bkgrd.csv",
                    header=T, stringsAsFactors=F) %>% tbl_df %>%
-  select(Species:Y, slope, cosasp, brnopn_1ha, brnopn_1km, pipo_1km)
+  mutate(brnopn_1ha_ravg = brnopn_1ha) %>%
+  mutate(brnopn_1km_ravg = brnopn_1km) %>%
+  mutate(brnopn_1ha = brnopn_1ha_mtbs) %>%
+  mutate(brnopn_1km = brnopn_1km_mtbs) %>%
+  select(Species:Y, slope, cosasp, brnopn_1ha, brnopn_1km, pipo_1km,
+         brnopn_1ha_mtbs, brnopn_1km_mtbs, brnopn_1ha_ravg, brnopn_1km_ravg)
 names(BP_bkg) <- names(TB_bkg)[-which(names(TB_nsts) %in% c("TID", "nest", "log_1ha", "log_1km", "unhatched"))]
 
 ## Canyon Creek ##
@@ -143,7 +153,7 @@ BP_PAdata <- BP_PAdata %>%
 CC_PAdata <- CC_PAdata %>%
   mutate(PIPO = (Species == "PIPO") %>% as.numeric)
 
-# IDs for unhatched nests #
+# Identify unhatched nests #
 unhatched.nests <- c("TBORAA_NA1_2007", "TBOR08_NB1_2005", "CCORSG_NG01_2016", "CCORSG_NF01_2017",
                      "YV-A01")
 

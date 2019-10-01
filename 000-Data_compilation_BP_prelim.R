@@ -1,13 +1,21 @@
 setwd("F:/research stuff/FS_PostDoc/WHWO/burn_forest_modeling/WtLogReg/BP/")
 library(dplyr)
+library(stringr)
 
 #Remote-sensed variables
-Dat.remote <- read.csv("WLR_data_remote.csv", header=T, stringsAsFactors=F) %>% tbl_df
+Dat.remote <- read.csv("archive/WLR_data_remote.csv", header=T, stringsAsFactors=F) %>% tbl_df
 Dat.all <- Dat.remote %>%
-  arrange(PID)
+  arrange(PID) %>%
+  mutate(brnopn_1ha_ravg = brnopn_1ha) %>%
+  mutate(brnopn_1km_ravg = brnopn_1km) %>%
+  mutate(brnopn_1ha = brnopn_1ha_mtbs) %>%
+  mutate(brnopn_1km = brnopn_1km_mtbs) %>%
+  select(PID:Y, brnopn_1ha, brnopn_1km, pipo_1km:cosasp, Type,
+         brnopn_1ha_mtbs, brnopn_1km_mtbs, brnopn_1ha_ravg, brnopn_1km_ravg)
+  
 
 #No. trees & snags
-Dat.TRSN <- read.table("Barry_Point_trees&snags.txt", header=T, stringsAsFactors=F, sep=",") %>%
+Dat.TRSN <- read.table("archive/Barry_Point_trees&snags.txt", header=T, stringsAsFactors=F, sep=",") %>%
   tbl_df
 Dat.TRSN[is.na(Dat.TRSN)] <- 0
 Dat.TRSN <- Dat.TRSN[,-(which(apply(Dat.TRSN[,-1],2,sum)==0)+1)] #Remove columns with all zero counts.
@@ -62,7 +70,7 @@ Dat.TRSN <- Dat.TRSN[order(Dat.TRSN$Point_ID),]
 Dat.all <- cbind(Dat.all,Dat.TRSN[,-1])
 
 # Center tree or snag data #
-Dat.nst <- read.table("Birds_nest_locations.txt", header=T, stringsAsFactors=F, sep=",") %>%
+Dat.nst <- read.table("archive/Birds_nest_locations.txt", header=T, stringsAsFactors=F, sep=",") %>%
   tbl_df %>%
   filter(str_sub(Nest_ID, 1, 4) == "EMBP" & Species == "WHWO") %>%
   select(Nest_ID, Tree_Snag_Log:DBH, Decay_class) %>%
@@ -110,7 +118,7 @@ Dat.cnt <- Dat.cnt %>% select(-Decay_class) %>% select(-live) %>%
 ############################################################
 
 #### Alternative 2: center tree/snag if DBH > 25 ####
-Dat.tre <- read.table("Veg02_Live_trees_over_25.txt",header=T,stringsAsFactors=F,sep=",")
+Dat.tre <- read.table("archive/Veg02_Live_trees_over_25.txt",header=T,stringsAsFactors=F,sep=",")
 Dat.tre <- Dat.tre[which(substr(Dat.tre$Measurement_ID,1,4)=="EMBP"),]
 Dat.tre <- Dat.tre[-which(Dat.tre$Tree_species=="NONE"),]
 Dat.tre <- Dat.tre[-which(is.element(Dat.tre$Measurement_ID,Dat.nst$Nest_ID)),]
@@ -118,7 +126,7 @@ Dat.tre <- Dat.tre[,c(1,11,4,7,6)]
 Dat.tre$status <- "tree"
 Dat.rnd <- Dat.tre[which(Dat.tre$Center_tree=="Y"),-2]
 
-Dat.sng <- read.table("Veg04_Snags.txt",header=T,stringsAsFactors=F,sep=",")
+Dat.sng <- read.table("archive/Veg04_Snags.txt",header=T,stringsAsFactors=F,sep=",")
 Dat.sng <- Dat.sng[which(substr(Dat.sng$Measurement_ID,1,4)=="EMBP"),]
 Dat.sng <- Dat.sng[-which(is.element(Dat.sng$Measurement_ID,Dat.nst$Nest_ID)),]
 Dat.sng <- Dat.sng[-which(Dat.sng$Snag_species=="NONE"),]
@@ -160,13 +168,15 @@ rm(ind.nest)
 Dat.cnt$ID <- substr(Dat.cnt$ID,1,(nchar(Dat.cnt$ID)-5))
 Dat.cnt <- Dat.cnt[order(Dat.cnt$ID),]
 
-Dat.rmt <- Dat.all[,-c(15:20)]
-write.csv(Dat.rmt,"WLR_data_remote.csv",row.names=F)
+#Dat.rmt <- Dat.all[,-c(13:20)]
+#write.csv(Dat.rmt,"WLR_data_remote.csv",row.names=F)
 
 Dat.cmb <- Dat.all[-which(is.element(Dat.all$PID,c("LHC08","YV01"))),]#Remove random points with no large (DBH > 25)
                                                         #snags (only live trees or small snags) in plot (n = 2).
 
 Dat.cmb <- cbind(Dat.cmb,Dat.cnt[,-1])
+Dat.cmb$Nest <- as.integer(Dat.cmb$Type == "nest")
+Dat.cmb <- Dat.cmb %>% select(PID:Y, Nest, brnopn_1ha:status)
 
 #Rescale snag/tree counts to no./ha
 Dat.cmb[,c(15:19)] <- Dat.cmb[,c(15:19)]/0.4

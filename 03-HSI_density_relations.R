@@ -117,8 +117,7 @@ axisLabSize <- 20   # Size of axis title labels
 
 # Coordinates for plot labels
 classLabSize <- 6   # Size of labels for low, moderate, and high suitability classes
-labxy <- list(maxSSS = c(x = 0.51, y = 1),
-              Low = c(x = 0.17, y = 1.25), 
+labxy <- list(Low = c(x = 0.17, y = 1.25), 
               Moderate = c(x = 0.4, y = 1.25, angle = 0),
               High = c(x = 0.7, y = 1.25))
 

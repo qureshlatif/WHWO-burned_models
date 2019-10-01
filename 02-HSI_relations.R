@@ -3,7 +3,7 @@ library(R.utils)
 # Note: You might get some disconcerting warnings upon first install.
 #To avoid them, restart R after installing package.
 require(WoodpeckerHSI)
-setwd("F:/research stuff/FS_PostDoc/WHWO/burn_forest_modeling/")
+setwd("C:/Users/Quresh.Latif/files/projects/prior/WHWO_burn_models/")
 load("HSI_validation_MS/Data_compiled.RData")
 source("HSI_validation_MS/scripts/Maxent_HSI_functions.r")
 
