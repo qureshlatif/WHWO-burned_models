@@ -134,7 +134,7 @@ dat.plot$HSI <- predict(mod, dat.plot, type = "response")
 plt.Tree_ovr25 <- ggplot(dat.plot, aes(Tree_ovr25, HSI)) +
   geom_line(size = 3) +
   ylim(0,1) +
-  ylab(NULL) + xlab("Tree_ovr25") +
+  ylab(NULL) + xlab("TreeDens") +
   theme(axis.text.x=element_text(size=20)) +
   theme(axis.text.y=element_text(size=20)) +
   theme(axis.title.x=element_text(size=30)) +
