@@ -1,4 +1,11 @@
-setwd("F:/research stuff/FS_PostDoc/WHWO/burn_forest_modeling/")
+#Run only the first time
+install.packages(c("raster", "dismo", "pbapply",
+ "rgeos", "dplyr", "rgdal",
+ "maptools", "ENMeval" , "here",
+ "adehabitatHR")) #only run if frist time or need update pckgs
+Sys.setenv(NOAWT=TRUE)
+
+setwd("C:/Users/Quresh.Latif/files/projects/prior/WHWO_burn_models")
 load("HSI_validation_MS/Data_compiled.RData")
 require(dismo)
 require(dplyr)

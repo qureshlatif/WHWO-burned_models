@@ -149,7 +149,7 @@ dat.plot$HSI <- predict(mod, dat.plot, type = "response")
 plt.PIPO_perc <- ggplot(dat.plot, aes(PIPO_perc, HSI)) +
   geom_line(size = 3) +
   ylim(0,1) +
-  ylab(NULL) + xlab("PIPO_perc") +
+  ylab(NULL) + xlab("PIPO%") +
   theme(axis.text.x=element_text(size=20)) +
   theme(axis.text.y=element_text(size=20)) +
   theme(axis.title.x=element_text(size=30)) +
