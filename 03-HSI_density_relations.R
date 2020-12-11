@@ -1,6 +1,7 @@
 library(R.utils)
 require(WoodpeckerHSI)
-setwd("F:/research stuff/FS_PostDoc/WHWO/burn_forest_modeling/")
+#setwd("F:/research stuff/FS_PostDoc/WHWO/burn_forest_modeling/")
+setwd("C:/Users/Quresh.Latif/files/projects/prior/WHWO_burn_models")
 load("HSI_validation_MS/Data_compiled.RData")
 
 ###______________________ Maxent model __________________________###
@@ -25,9 +26,9 @@ transects <- unique(bkg$TID)
 thresholds <- c(0.34, 0.6) # Thresholds for low, moderate, and high suitability classes
 
 # Compile class-specific densities and boot-strap CIs at the transect level. #
-#dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
-#dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
-#dat.class <- dat.class %>% HSIClassDensityBS(nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
+dat.class <- calcClassDensities(nests$HSI, bkg$HSI, thresholds, A)
+dat.class$PercNest <- (((dat.class$Density) / sum(dat.class$Density))*100) %>% round
+dat.class <- HSIClassDensityBSpar(dat.class, nests, bkg, transects, thresholds, A, R, UnitID = "TID", HSI = "HSI")
 #write.csv(dat.class, "Plotting_cache_Mxnt_densities_BS.csv", row.names = F)
 dat.class <- read.csv("Plotting_cache_Mxnt_densities_BS.csv", header = T, stringsAsFactors = F)
 
